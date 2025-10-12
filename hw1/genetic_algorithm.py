@@ -29,7 +29,7 @@ def crossover(parent1, parent2):
     child = parent1[:point] + parent2[point:]
     return child
 
-'''
+''' rewritten functions from practicals (not used)
 def cross(p1, p2):
     point = random.randrange(1, len(p1) - 1)
     o1 = p1[:point] + p2[point:]
