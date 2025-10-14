@@ -1,13 +1,28 @@
-Vyzkoušel jsem jednoduchý genetický algoritmus na problém OneMax a na střídavém vzoru. Cílem bylo zjistit, jak se mění rychlost konvergence algoritmu při různých nastaveních operátorů. 
+Jaroslav Kusák
 
-U úlohy OneMax jsem měnil pravděpodobnost mutace (0.001, 0.01 a 0.05) při pevném crossoveru 0.9:
+Vyzkoušel jsem jednoduchý genetický algoritmus na problém OneMax a na střídavý vzor (1010.., 0101..).
 
-- ukázalo se, že nejlépe fungovala mutace 0.01
-- příliš malá mutace lehce zpomalovala konvergenci, vyšší míra mutace řešení více „rozbíjela“ řešení a dopadla nejhůře
+Cílem bylo zjistit, jak se mění rychlost konvergence algoritmu při různém nastavení základních operátorů - mutace a křížení.
 
-U střídavého vzoru jsem zkoumal vliv pravděpodobnosti křížení (0.6, 0.8, 0.95) při mutaci 0.01:
+Nastavení algoritmu:
+Populace 50 jedinců
+Délka jedince 40 bitů
+100 generací
+Elistismus 2
+Výběr podle rulety
+Každé nastavení bylo spouštěno 10x a v grafech je zobrazena průměrná nejlepší fitness v jednotlivých generacích.
 
-- všechny tři hodnoty křížení vedly k podobnému výsledku
-- nicméně vyšší crossover (0.95) měl o něco rychlejší začátek a mírně lepší konec
+OneMax
+Zkoumal jsem vliv pravděpodobnosti mutace (0.001, 0.01 a 0.05) při pevném crossoveru 0.9.
+- Nejlépe fungovala mutace = 0.01, která dosáhla nejvyšší fitness i nejrychlejší konvergence.
+- Příliš malá mutace (0.001) konvergenci zpomalila.
+- Příliš velká mutace (0.05) měla tendenci rozbíjet již dobrá řešení a skončila s nižší kvalitou výsledků.
 
-Celkově algoritmus spolehlivě konverguje, pouze rychlost a stabilita se liší podle nastavených parametrů.
+Střídavý vzor
+Zkoumal jsem vliv pravděpodobnosti křížení (0.6, 0.8, 0.95) při mutaci 0.01.
+- Všechny tři hodnoty dosáhly podobného výsledku.
+- Vyšší crossover (0.95) měl rychlejší start a lehce vyšší konečnou fitness.
+- Nižší crossover (0.6) konvergoval o něco pomaleji.
+
+Celkově algoritmus ve všech případech konverguje.
+Rychlost a stabilita závisí hlavně na zvolené míře mutace a křížení, menší hodnoty zajišťují stabilitu, vyšší zase přinášejí rychlejší, ale méně plynulý vývoj.

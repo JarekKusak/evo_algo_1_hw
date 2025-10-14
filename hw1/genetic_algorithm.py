@@ -54,8 +54,8 @@ def crossover(population):
 
 def mutate(individual, mutation_rate=0.01):
     for i in range(len(individual)):
-        if random.random() < mutation_rate: # Mutation chance
-            individual[i] = 1 - individual[i]  # Flip bit (assuming binary representation)
+        if random.random() < mutation_rate: # mutation chance
+            individual[i] = 1 - individual[i]  # flip bit (assuming binary representation)
     return individual
 
 def genetic_algorithm(population, fitness_fn, generations, mutation_rate=0.01, crossover_rate=0.9, elitism=2):
@@ -75,12 +75,12 @@ def genetic_algorithm(population, fitness_fn, generations, mutation_rate=0.01, c
         # produce the rest
         while len(next_generation) < len(population):
             parent1, parent2 = select_parents(population, fitness_fn)
-            # Crossover with probability
+            # crossover with probability
             if random.random() < crossover_rate:
                 child = crossover(parent1, parent2)
             else:
                 child = parent1[:]
-            # Mutation
+            # mutation
             mutate(child, mutation_rate)
             next_generation.append(child)
 
@@ -114,12 +114,10 @@ def fitness_alternating(individual):
 def init_population(pop_size, gene_len):
     return [[random.randint(0, 1) for _ in range(gene_len)] for _ in range(pop_size)]
 
-def run_averaged(fitness_fn, gene_len, pop_size, generations, mutation_rate, crossover_rate, elitism, repeats, seed_base=1000):
-    """Run GA multiple times and return the list of per-generation best fitness means."""
+def run_averaged(fitness_fn, gene_len, pop_size, generations, mutation_rate, crossover_rate, elitism, repeats):
     # accumulate histories and average them generation-wise
     totals = None
     for r in range(repeats):
-        random.seed(seed_base + r)
         pop = init_population(pop_size, gene_len)
         _, hist = genetic_algorithm(pop, fitness_fn, generations, mutation_rate=mutation_rate, crossover_rate=crossover_rate, elitism=elitism)
         if totals is None:
@@ -159,9 +157,9 @@ if __name__ == "__main__":
             mutation_rate=m,
             crossover_rate=0.9,
             elitism=ELITISM,
-            repeats=5,
-            seed_base=2000
+            repeats=10 # number of runs to average
         )
+
     # plot OneMax
     plt.figure()
     for m in mut_vals:
@@ -185,8 +183,7 @@ if __name__ == "__main__":
             mutation_rate=0.01,
             crossover_rate=c,
             elitism=ELITISM,
-            repeats=5,
-            seed_base=3000
+            repeats=10
         )
 
     # plot Alternating
